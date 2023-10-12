@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NumericInput extends StatefulWidget {
   final String label;
@@ -17,8 +18,10 @@ class _NumericInputState extends State<NumericInput> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: false, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+      ],
       decoration: InputDecoration(labelText: widget.label),
     );
   }
