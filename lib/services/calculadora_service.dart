@@ -1,35 +1,38 @@
 import 'package:calculadora_imc_app/models/dados.dart';
+import 'package:calculadora_imc_app/models/resultado_imc.dart';
 
 class CalculadoraService {
-  Future<String> calcularIMCAsync(Dados dados) async {
-    await Future.delayed(const Duration(seconds: 5));
+  ResultadoIMC calcularIMC(Dados dados) {
+    ResultadoIMC resultado = ResultadoIMC.empty();
     try {
       var peso = double.parse(dados.peso);
       var altura = double.parse(dados.altura);
-      var resultado = peso / (altura * altura);
-      if (resultado.isNaN || resultado.isInfinite) {
+      var calculo = peso / (altura * altura);
+      if (calculo.isNaN || calculo.isInfinite) {
         throw Exception("Dados incorretos");
       }
-      var retorno = "IMC: ${resultado.toStringAsFixed(2)}.";
-      if (resultado < 16) {
-        return "$retorno Magreza grave";
-      } else if (resultado >= 16 && resultado < 17) {
-        return "$retorno Magreza moderada";
-      } else if (resultado >= 17 && resultado < 18.5) {
-        return "$retorno Magreza leve";
-      } else if (resultado >= 18.5 && resultado < 25) {
-        return "$retorno Saudável";
-      } else if (resultado >= 25 && resultado < 30) {
-        return "$retorno Sobrepeso";
-      } else if (resultado >= 30 && resultado < 35) {
-        return "$retorno Obesidade Grau I";
-      } else if (resultado >= 35 && resultado < 40) {
-        return "$retorno Obesidade Grau II (Severa)";
+      resultado.resultado = calculo.toStringAsFixed(2);
+      if (calculo < 16) {
+        resultado.descricao = "Magreza grave";
+      } else if (calculo >= 16 && calculo < 17) {
+        resultado.descricao = "Magreza moderada";
+      } else if (calculo >= 17 && calculo < 18.5) {
+        resultado.descricao = "Magreza leve";
+      } else if (calculo >= 18.5 && calculo < 25) {
+        resultado.descricao = "Saudável";
+      } else if (calculo >= 25 && calculo < 30) {
+        resultado.descricao = "Sobrepeso";
+      } else if (calculo >= 30 && calculo < 35) {
+        resultado.descricao = "Obesidade Grau I";
+      } else if (calculo >= 35 && calculo < 40) {
+        resultado.descricao = "Obesidade Grau II (Severa)";
       } else {
-        return "$retorno Obesidade Grau III (Mórbida)";
+        resultado.descricao = "Obesidade Grau III (Mórbida)";
       }
+
+      return resultado;
     } catch (e) {
-      return "ERRO: $e";
+      return resultado;
     }
   }
 }

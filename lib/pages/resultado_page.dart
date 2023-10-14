@@ -22,7 +22,7 @@ class _ResultadoPageState extends State<ResultadoPage> {
   }
 
   void calcularIMC() async {
-    resultado = await service.calcularIMCAsync(widget.dados);
+    //resultado = await service.calcularIMCAsync(widget.dados);
 
     setState(() {
       calculouResultado = true;
