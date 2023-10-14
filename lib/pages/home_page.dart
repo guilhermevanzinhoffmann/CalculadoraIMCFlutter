@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
             children: const [UserPage(), IMCPage()],
           )),
           BottomNavigationBar(
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             type: BottomNavigationBarType.fixed,
             onTap: (value) {
               pageController.jumpToPage(value);
